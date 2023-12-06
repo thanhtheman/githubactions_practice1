@@ -1,22 +1,24 @@
 name: deploy lol
 on: [push]
 jobs:
-    # lint:
-    #     runs-on: ubuntu-latest
-    #     steps:
-    #         - uses: actions/checkout@v3
-    #         - run: npm ci
-    #         - run: npm run lint
-    tests:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - run: npm ci
+            - run: npm run lint
+    test:
+        needs: lint
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
             - run: npm ci
             - run: npm run test
     deploy:
-        runs-on: ubutun-latest
+        needs: [lint, test]
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
             - run: npm ci
             - run: npm run build
-            - run: echo "Deploying..."
+            - run: echo "Deploying to server..."
