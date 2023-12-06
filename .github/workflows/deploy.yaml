@@ -1,4 +1,4 @@
-name: deploy
+name: deploy lol
 on: [push]
 jobs:
     # lint:
